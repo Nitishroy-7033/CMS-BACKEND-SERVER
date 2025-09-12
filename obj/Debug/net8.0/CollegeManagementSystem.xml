@@ -1,0 +1,126 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>CollegeManagementSystem</name>
+    </assembly>
+    <members>
+        <member name="T:CollegeManagementSystem.Controllers.CollegeController">
+            <summary>
+            College management operations
+            </summary>
+        </member>
+        <member name="M:CollegeManagementSystem.Controllers.CollegeController.GetAllColleges">
+            <summary>
+            Get all colleges
+            </summary>
+            <returns>List of all colleges</returns>
+            <response code="200">Returns the list of colleges</response>
+        </member>
+        <member name="M:CollegeManagementSystem.Controllers.CollegeController.GetCollegeById(System.String)">
+            <summary>
+            Get a specific college by ID
+            </summary>
+            <param name="id">College ID</param>
+            <returns>College details</returns>
+            <response code="200">Returns the college details</response>
+            <response code="404">If the college is not found</response>
+        </member>
+        <member name="M:CollegeManagementSystem.Controllers.CollegeController.CreateCollege(CollegeManagementSystem.Models.RequestModels.CreateCollegeRequest)">
+            <summary>
+            Create a new college
+            </summary>
+            <param name="request">College creation details</param>
+            <returns>Created college</returns>
+            <response code="201">Returns the newly created college</response>
+            <response code="400">If the request is invalid</response>
+        </member>
+        <member name="M:CollegeManagementSystem.Controllers.CollegeController.UpdateCollege(System.String,CollegeManagementSystem.Models.RequestModels.UpdateCollegeRequest)">
+            <summary>
+            Update an existing college
+            </summary>
+            <param name="id">College ID</param>
+            <param name="request">Updated college details</param>
+            <returns>Updated college</returns>
+            <response code="200">Returns the updated college</response>
+            <response code="404">If the college is not found</response>
+        </member>
+        <member name="M:CollegeManagementSystem.Controllers.CollegeController.DeleteCollege(System.String)">
+            <summary>
+            Delete a college
+            </summary>
+            <param name="id">College ID</param>
+            <returns>No content</returns>
+            <response code="204">College successfully deleted</response>
+            <response code="404">If the college is not found</response>
+        </member>
+        <member name="M:CollegeManagementSystem.Controllers.CollegeController.SearchColleges(System.String)">
+            <summary>
+            Search colleges by name
+            </summary>
+            <param name="name">College name to search for</param>
+            <returns>List of matching colleges</returns>
+            <response code="200">Returns the list of matching colleges</response>
+        </member>
+        <member name="T:CollegeManagementSystem.Controllers.StudentController">
+            <summary>
+            Student management operations
+            </summary>
+        </member>
+        <member name="M:CollegeManagementSystem.Controllers.StudentController.GetAllStudents">
+            <summary>
+            Get all students
+            </summary>
+            <returns>List of all students</returns>
+        </member>
+        <member name="M:CollegeManagementSystem.Controllers.StudentController.GetStudentById(System.String)">
+            <summary>
+            Get a specific student by ID
+            </summary>
+            <param name="id">Student ID</param>
+            <returns>Student details</returns>
+        </member>
+        <member name="M:CollegeManagementSystem.Controllers.StudentController.CreateStudent(CollegeManagementSystem.Models.RequestModels.CreateStudentRequest)">
+            <summary>
+            Create a new student
+            </summary>
+            <param name="request">Student creation details</param>
+            <returns>Created student</returns>
+        </member>
+        <member name="M:CollegeManagementSystem.Controllers.StudentController.UpdateStudent(System.String,CollegeManagementSystem.Models.RequestModels.UpdateStudentRequest)">
+            <summary>
+            Update an existing student
+            </summary>
+            <param name="id">Student ID</param>
+            <param name="request">Updated student details</param>
+            <returns>Updated student</returns>
+        </member>
+        <member name="M:CollegeManagementSystem.Controllers.StudentController.DeleteStudent(System.String)">
+            <summary>
+            Delete a student
+            </summary>
+            <param name="id">Student ID</param>
+            <returns>No content</returns>
+        </member>
+        <member name="M:CollegeManagementSystem.Controllers.StudentController.GetStudentsByCollegeId(System.String)">
+            <summary>
+            Get all students in a specific college
+            </summary>
+            <param name="collegeId">College ID</param>
+            <returns>List of students in the college</returns>
+        </member>
+        <member name="M:CollegeManagementSystem.Controllers.StudentController.GetStudentsByBranchId(System.String)">
+            <summary>
+            Get all students in a specific branch
+            </summary>
+            <param name="branchId">Branch ID</param>
+            <returns>List of students in the branch</returns>
+        </member>
+        <member name="M:CollegeManagementSystem.Controllers.StudentController.GetStudentByStudentId(System.String)">
+            <summary>
+            Get student by their student ID (not database ID)
+            </summary>
+            <param name="studentId">Student ID (enrollment number)</param>
+            <returns>Student details</returns>
+        </member>
+    </members>
+</doc>
