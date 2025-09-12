@@ -61,6 +61,25 @@
             <returns>List of matching colleges</returns>
             <response code="200">Returns the list of matching colleges</response>
         </member>
+        <member name="T:CollegeManagementSystem.Controllers.DataSeedController">
+            <summary>
+            Data seeding operations for testing and development
+            </summary>
+        </member>
+        <member name="M:CollegeManagementSystem.Controllers.DataSeedController.SeedData">
+            <summary>
+            Seed the database with dummy data including 200 students
+            </summary>
+            <returns>Seeding status</returns>
+            <response code="200">Data seeding completed successfully</response>
+            <response code="400">Data seeding failed</response>
+        </member>
+        <member name="M:CollegeManagementSystem.Controllers.DataSeedController.GetDatabaseStats">
+            <summary>
+            Get database statistics after seeding
+            </summary>
+            <returns>Database statistics</returns>
+        </member>
         <member name="T:CollegeManagementSystem.Controllers.StudentController">
             <summary>
             Student management operations
