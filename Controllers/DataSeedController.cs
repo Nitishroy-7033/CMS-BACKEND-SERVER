@@ -31,18 +31,20 @@ namespace CollegeManagementSystem.Controllers
             try
             {
                 await DataSeeder.SeedDataAsync(_serviceProvider);
-                return Ok(new { 
-                    Message = "Data seeding completed successfully!", 
+                return Ok(new
+                {
+                    Message = "Data seeding completed successfully!",
                     Details = "Created colleges, courses, branches, subjects, fee structures, 200 students, and exams",
-                    Timestamp = DateTime.UtcNow 
+                    Timestamp = DateTime.UtcNow
                 });
             }
             catch (Exception ex)
             {
-                return BadRequest(new { 
-                    Message = "Data seeding failed", 
+                return BadRequest(new
+                {
+                    Message = "Data seeding failed",
                     Error = ex.Message,
-                    Timestamp = DateTime.UtcNow 
+                    Timestamp = DateTime.UtcNow
                 });
             }
         }
@@ -58,7 +60,7 @@ namespace CollegeManagementSystem.Controllers
             try
             {
                 using var scope = _serviceProvider.CreateScope();
-                
+
                 var collegeService = scope.ServiceProvider.GetRequiredService<CollegeManagementSystem.Services.Interfaces.ICollegeService>();
                 var courseService = scope.ServiceProvider.GetRequiredService<CollegeManagementSystem.Services.Interfaces.ICourseService>();
                 var branchService = scope.ServiceProvider.GetRequiredService<CollegeManagementSystem.Services.Interfaces.IBranchService>();
@@ -83,9 +85,10 @@ namespace CollegeManagementSystem.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(new { 
-                    Message = "Failed to get database statistics", 
-                    Error = ex.Message 
+                return BadRequest(new
+                {
+                    Message = "Failed to get database statistics",
+                    Error = ex.Message
                 });
             }
         }

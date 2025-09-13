@@ -8,7 +8,7 @@ namespace CollegeManagementSystem.Data
         public static async Task SeedDataAsync(IServiceProvider serviceProvider)
         {
             using var scope = serviceProvider.CreateScope();
-            
+
             var collegeService = scope.ServiceProvider.GetRequiredService<ICollegeService>();
             var courseService = scope.ServiceProvider.GetRequiredService<ICourseService>();
             var branchService = scope.ServiceProvider.GetRequiredService<IBranchService>();
@@ -80,7 +80,7 @@ namespace CollegeManagementSystem.Data
                     ContactNumber = data.ContactNumber,
                     Email = data.Email
                 };
-                
+
                 var college = await collegeService.CreateCollegeAsync(request);
                 colleges.Add(college);
             }
@@ -107,7 +107,7 @@ namespace CollegeManagementSystem.Data
             {
                 // Each college offers 4-6 courses
                 var coursesToCreate = courseData.Take(new Random().Next(4, 7));
-                
+
                 foreach (var data in coursesToCreate)
                 {
                     var request = new Models.RequestModels.CreateCourseRequest
@@ -116,7 +116,7 @@ namespace CollegeManagementSystem.Data
                         DurationYears = data.DurationYears,
                         CollegeId = college.Id
                     };
-                    
+
                     var course = await courseService.CreateCourseAsync(request);
                     courses.Add(course);
                 }
@@ -129,62 +129,62 @@ namespace CollegeManagementSystem.Data
         {
             var branchData = new Dictionary<string, string[]>
             {
-                ["Bachelor of Technology (B.Tech)"] = new[] 
-                { 
-                    "Computer Science Engineering", 
-                    "Electrical Engineering", 
-                    "Mechanical Engineering", 
-                    "Civil Engineering", 
+                ["Bachelor of Technology (B.Tech)"] = new[]
+                {
+                    "Computer Science Engineering",
+                    "Electrical Engineering",
+                    "Mechanical Engineering",
+                    "Civil Engineering",
                     "Electronics & Communication Engineering",
                     "Information Technology",
                     "Chemical Engineering",
                     "Aeronautical Engineering"
                 },
-                ["Master of Technology (M.Tech)"] = new[] 
-                { 
-                    "Computer Science & Engineering", 
-                    "VLSI Design", 
-                    "Structural Engineering", 
+                ["Master of Technology (M.Tech)"] = new[]
+                {
+                    "Computer Science & Engineering",
+                    "VLSI Design",
+                    "Structural Engineering",
                     "Machine Design",
                     "Power Systems"
                 },
-                ["Bachelor of Computer Applications (BCA)"] = new[] 
-                { 
-                    "Software Development", 
-                    "Database Management", 
-                    "Web Technologies" 
+                ["Bachelor of Computer Applications (BCA)"] = new[]
+                {
+                    "Software Development",
+                    "Database Management",
+                    "Web Technologies"
                 },
-                ["Master of Computer Applications (MCA)"] = new[] 
-                { 
-                    "Software Engineering", 
-                    "Data Science", 
-                    "Cyber Security" 
+                ["Master of Computer Applications (MCA)"] = new[]
+                {
+                    "Software Engineering",
+                    "Data Science",
+                    "Cyber Security"
                 },
-                ["Bachelor of Science (B.Sc)"] = new[] 
-                { 
-                    "Computer Science", 
-                    "Mathematics", 
-                    "Physics", 
-                    "Chemistry" 
+                ["Bachelor of Science (B.Sc)"] = new[]
+                {
+                    "Computer Science",
+                    "Mathematics",
+                    "Physics",
+                    "Chemistry"
                 },
-                ["Master of Science (M.Sc)"] = new[] 
-                { 
-                    "Computer Science", 
-                    "Data Analytics", 
-                    "Applied Mathematics" 
+                ["Master of Science (M.Sc)"] = new[]
+                {
+                    "Computer Science",
+                    "Data Analytics",
+                    "Applied Mathematics"
                 },
-                ["Bachelor of Business Administration (BBA)"] = new[] 
-                { 
-                    "Finance", 
-                    "Marketing", 
-                    "Human Resources" 
+                ["Bachelor of Business Administration (BBA)"] = new[]
+                {
+                    "Finance",
+                    "Marketing",
+                    "Human Resources"
                 },
-                ["Master of Business Administration (MBA)"] = new[] 
-                { 
-                    "Finance", 
-                    "Marketing", 
-                    "Operations", 
-                    "Human Resources" 
+                ["Master of Business Administration (MBA)"] = new[]
+                {
+                    "Finance",
+                    "Marketing",
+                    "Operations",
+                    "Human Resources"
                 }
             };
 
@@ -201,7 +201,7 @@ namespace CollegeManagementSystem.Data
                             Name = branchName,
                             CourseId = course.Id
                         };
-                        
+
                         var branch = await branchService.CreateBranchAsync(request);
                         branches.Add(branch);
                     }
@@ -229,7 +229,7 @@ namespace CollegeManagementSystem.Data
             foreach (var branch in branches)
             {
                 decimal totalFee;
-                
+
                 // Determine fee based on branch type
                 if (branch.Name.Contains("Computer Science") || branch.Name.Contains("Information Technology"))
                     totalFee = random.Next(600000, 800001);
@@ -250,7 +250,7 @@ namespace CollegeManagementSystem.Data
                     SemesterFee = totalFee / 8, // 8 semesters
                     Currency = "INR"
                 };
-                
+
                 var feeStructure = await feeStructureService.CreateFeeStructureAsync(request);
                 feeStructures.Add(feeStructure);
             }
@@ -316,7 +316,7 @@ namespace CollegeManagementSystem.Data
             foreach (var branch in branches)
             {
                 Dictionary<int, Dictionary<int, string[]>>? template = null;
-                
+
                 if (branch.Name.Contains("Computer") || branch.Name.Contains("IT") || branch.Name.Contains("Software"))
                     template = subjectTemplates["Computer Science"];
                 else
@@ -338,7 +338,7 @@ namespace CollegeManagementSystem.Data
                                 Semester = semester,
                                 Credits = random.Next(3, 5) // 3-4 credits
                             };
-                            
+
                             var subject = await subjectService.CreateSubjectAsync(request);
                             subjects.Add(subject);
                         }
@@ -385,20 +385,20 @@ namespace CollegeManagementSystem.Data
                 var firstName = firstNames[random.Next(firstNames.Length)];
                 var lastName = lastNames[random.Next(lastNames.Length)];
                 var fullName = $"{firstName} {lastName}";
-                
+
                 var college = colleges[random.Next(colleges.Count)];
                 var collegeCourses = courses.Where(c => c.CollegeId == college.Id).ToList();
-                
+
                 if (!collegeCourses.Any()) continue;
-                
+
                 var course = collegeCourses[random.Next(collegeCourses.Count)];
                 var courseBranches = branches.Where(b => b.CourseId == course.Id).ToList();
-                
+
                 if (!courseBranches.Any()) continue;
-                
+
                 var branch = courseBranches[random.Next(courseBranches.Count)];
                 var city = cities[random.Next(cities.Length)];
-                
+
                 var studentId = GenerateStudentId(college.Name, course.Name, i);
                 var year = random.Next(1, course.DurationYears + 1);
 
@@ -414,10 +414,10 @@ namespace CollegeManagementSystem.Data
                     StudentId = studentId,
                     Year = year
                 };
-                
+
                 var student = await studentService.CreateStudentAsync(request);
                 students.Add(student);
-                
+
                 // Progress indicator
                 if (i % 50 == 0)
                 {
@@ -437,17 +437,17 @@ namespace CollegeManagementSystem.Data
             foreach (var branch in branches)
             {
                 var branchSubjects = subjects.Where(s => s.BranchId == branch.Id).ToList();
-                
+
                 foreach (var subject in branchSubjects)
                 {
                     // Create 2-3 exams per subject per year
                     var examCount = random.Next(2, 4);
-                    
+
                     for (int i = 0; i < examCount; i++)
                     {
                         var examType = examTypes[i % examTypes.Length];
                         var examDate = DateTime.UtcNow.AddDays(random.Next(-30, 90)); // Past 30 days to next 90 days
-                        
+
                         var request = new Models.RequestModels.CreateExamRequest
                         {
                             Name = $"{examType} - {subject.Name}",
@@ -460,7 +460,7 @@ namespace CollegeManagementSystem.Data
                             DurationMinutes = examType.Contains("Practical") ? 180 : random.Next(120, 181), // 2-3 hours
                             MaxMarks = examType == "Internal Assessment" ? 50 : 100
                         };
-                        
+
                         var exam = await examService.CreateExamAsync(request);
                         exams.Add(exam);
                     }
@@ -480,14 +480,14 @@ namespace CollegeManagementSystem.Data
         private static string GenerateStudentId(string collegeName, string courseName, int index)
         {
             var collegeCode = string.Join("", collegeName.Split(' ').Take(2).Select(w => w.Substring(0, 1).ToUpper()));
-            var courseCode = courseName.Contains("B.Tech") ? "BT" : 
-                           courseName.Contains("M.Tech") ? "MT" : 
-                           courseName.Contains("BCA") ? "BCA" : 
-                           courseName.Contains("MCA") ? "MCA" : 
-                           courseName.Contains("B.Sc") ? "BSC" : 
-                           courseName.Contains("M.Sc") ? "MSC" : 
+            var courseCode = courseName.Contains("B.Tech") ? "BT" :
+                           courseName.Contains("M.Tech") ? "MT" :
+                           courseName.Contains("BCA") ? "BCA" :
+                           courseName.Contains("MCA") ? "MCA" :
+                           courseName.Contains("B.Sc") ? "BSC" :
+                           courseName.Contains("M.Sc") ? "MSC" :
                            courseName.Contains("BBA") ? "BBA" : "MBA";
-            
+
             return $"{collegeCode}{courseCode}{DateTime.Now.Year}{index:D3}";
         }
 
@@ -499,7 +499,7 @@ namespace CollegeManagementSystem.Data
                 "Whitefield", "Marathahalli", "Sarjapur Road", "HSR Layout", "JP Nagar", "Banashankari", "Rajajinagar",
                 "Malleshwaram", "Basavanagudi", "Commercial Street", "Cunningham Road", "Richmond Road", "Residency Road"
             };
-            
+
             return areas[new Random().Next(areas.Length)];
         }
     }
