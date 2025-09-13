@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: cms-backend
+    env: docker
+    region: singapore  # Choose the region closest to your users
+    plan: free  # or choose paid plans like starter/standard/pro
+    healthCheckPath: /swagger
+    envVars:
+      - key: ASPNETCORE_ENVIRONMENT
+        value: Production
+      - key: MONGODB_CONNECTION_STRING
+        sync: false  # This will be set manually in Render dashboard for security
+    buildCommand: docker build -t cms-backend .
+    startCommand: docker run -p $PORT:80 cms-backend
